@@ -33,7 +33,7 @@ export default function DashboardPage() {
       <div className="flex flex-wrap items-center justify-between gap-4 glass-card p-4 rounded-xl">
         <div>
           <h1 className="text-lg font-bold text-white">Защищенный Дашборд (Protected Route 🔒)</h1>
-          <p className="text-xs text-slate-400">Доступ разрешен только авторизованным пользователям</p>
+          <p className="text-xs text-slate-400">Доступ только авторизованным пользователям Firebase</p>
         </div>
         <div className="flex items-center space-x-2 text-xs">
           <span className="text-slate-400">Фильтр по исполнителю:</span>
