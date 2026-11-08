@@ -37,13 +37,13 @@ function getStorageData() {
 
 function setStorageData(data) {
   localStorage.setItem(API_CONFIG.STORAGE_KEY, JSON.stringify(data));
-  clearCache(); // Invalidate cache on data mutation
+  clearCache(); // Invalidate cache on mutations
 }
 
 export const fakeApi = {
   async getAll() {
     return new Promise((resolve, reject) => {
-      // 1. Check valid cache
+      // 1. Return from cache if valid
       if (cacheStore.allTasks && isCacheValid(cacheStore.allTasksTimestamp)) {
         resolve([...cacheStore.allTasks]);
         return;
@@ -65,7 +65,7 @@ export const fakeApi = {
 
   async getById(id) {
     return new Promise((resolve, reject) => {
-      // 1. Check valid cache
+      // 1. Return from cache if valid
       const cached = cacheStore.taskDetails.get(id);
       if (cached && isCacheValid(cached.timestamp)) {
         resolve({ ...cached.data });
