@@ -6,7 +6,7 @@
 
 Сайт проекта (Vercel): https://devtask-hub-tsis6.vercel.app
 
-Репозиторий (GitHub): https://github.com/Medeu06/devtask-hub-tsis6
+Репозиторий (GitHub): https://github.com/Medeu06/devtask-hub-tsis6/tree/main
 
 
 ⭐️ Что умеет проект
