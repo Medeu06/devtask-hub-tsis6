@@ -8,7 +8,7 @@ export default function AboutPage() {
       
       <div className="space-y-3 text-xs text-slate-300 leading-relaxed">
         <p>
-          <strong>DevTask Hub</strong> — интерактивный менеджер задач для IT-команд, развиваемый в рамках практических работ ТСИС4 $\rightarrow$ ТСИС5 $\rightarrow$ <strong>ТСИС6</strong>.
+          <strong>DevTask Hub</strong> — интерактивный менеджер задач для IT-команд, развиваемый в рамках практических работ </strong>.
         </p>
       </div>
 
