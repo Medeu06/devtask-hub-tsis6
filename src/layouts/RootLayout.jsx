@@ -10,7 +10,7 @@ export default function RootLayout() {
         <Outlet />
       </main>
       <footer className="border-t border-slate-900 py-4 text-center text-[11px] text-slate-500">
-        DevTask Hub © 2026 — Medeu Seidali. TSIS6 Protected Auth & Caching Strategy.
+        DevTask Hub © 2026 — Medeu Seidali. TSIS6 Firebase Auth & Data Caching.
       </footer>
     </div>
   );
