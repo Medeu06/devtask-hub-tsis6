@@ -3,12 +3,16 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 
 export default function NavBar() {
-  const { user, logout, isAuthenticated } = useAuth();
+  const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
-    navigate('/');
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/login');
+    } catch (err) {
+      alert(`Ошибка при выходе: ${err.message}`);
+    }
   };
 
   const linkStyle = ({ isActive }) =>
@@ -26,7 +30,7 @@ export default function NavBar() {
         </div>
         <div>
           <h1 className="text-sm font-bold tracking-tight text-white">DevTask Hub</h1>
-          <p className="text-[10px] text-slate-400">TSIS6 Auth & Caching System</p>
+          <p className="text-[10px] text-slate-400">TSIS6 Firebase Auth & Cache</p>
         </div>
       </NavLink>
 
@@ -34,16 +38,15 @@ export default function NavBar() {
         <NavLink to="/" end className={linkStyle}>Главная</NavLink>
         <NavLink to="/tasks" className={linkStyle}>Задачи</NavLink>
         <NavLink to="/dashboard" className={linkStyle}>
-          Дашборд {isAuthenticated ? '🔒' : '🔑'}
+          Дашборд {currentUser ? '🔒' : '🔑'}
         </NavLink>
         <NavLink to="/about" className={linkStyle}>О проекте</NavLink>
 
-        {isAuthenticated ? (
+        {currentUser ? (
           <div className="flex items-center space-x-2 pl-2 border-l border-slate-800">
-            <span className="text-[11px] text-slate-300 font-medium">👤 {user.name}</span>
-            <span className="text-[9px] px-1.5 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800 font-bold">
-              {user.role}
-            </span>
+            <NavLink to="/profile" className={linkStyle}>
+              👤 Профиль ({currentUser.email?.split('@')[0]})
+            </NavLink>
             <button
               onClick={handleLogout}
               className="px-2.5 py-1 text-xs font-semibold bg-red-950/60 hover:bg-red-900 text-red-300 border border-red-800/60 rounded-lg transition-colors"
@@ -52,7 +55,12 @@ export default function NavBar() {
             </button>
           </div>
         ) : (
-          <NavLink to="/login" className={linkStyle}>Войти</NavLink>
+          <div className="flex items-center space-x-1 pl-2 border-l border-slate-800">
+            <NavLink to="/login" className={linkStyle}>Войти</NavLink>
+            <NavLink to="/signup" className="px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-md">
+              Регистрация
+            </NavLink>
+          </div>
         )}
       </nav>
     </header>
