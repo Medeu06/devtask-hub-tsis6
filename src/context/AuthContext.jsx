@@ -1,33 +1,54 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged
+} from 'firebase/auth';
+import { auth, googleProvider } from '../firebase.js';
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem('devtask_auth_user');
-    return saved ? JSON.parse(saved) : null;
-  });
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const login = (email, password) => {
-    const userData = {
-      name: email.split('@')[0] || 'Medeu Seidali',
-      email,
-      role: 'Admin',
-      token: `jwt-token-${Date.now()}`
-    };
-    setUser(userData);
-    localStorage.setItem('devtask_auth_user', JSON.stringify(userData));
-    return true;
-  };
+  function signup(email, password) {
+    return createUserWithEmailAndPassword(auth, email, password);
+  }
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('devtask_auth_user');
+  function login(email, password) {
+    return signInWithEmailAndPassword(auth, email, password);
+  }
+
+  function loginWithGoogle() {
+    return signInWithPopup(auth, googleProvider);
+  }
+
+  function logout() {
+    return signOut(auth);
+  }
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      setLoading(false);
+    });
+    return unsubscribe;
+  }, []);
+
+  const value = {
+    currentUser,
+    signup,
+    login,
+    loginWithGoogle,
+    logout,
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user }}>
-      {children}
+    <AuthContext.Provider value={value}>
+      {!loading && children}
     </AuthContext.Provider>
   );
 }
