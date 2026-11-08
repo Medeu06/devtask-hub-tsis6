@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 
 export default function HomePage() {
-  const { isAuthenticated, user } = useAuth();
+  const { currentUser } = useAuth();
 
   return (
     <div className="max-w-4xl mx-auto glass-card p-8 rounded-2xl text-center space-y-6 my-8">
       <div className="inline-block p-4 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 font-bold text-xs">
-        🚀 DevTask Hub v3.0 TSIS6 (Auth & Cache Enabled)
+        🚀 DevTask Hub v3.0 (Firebase Auth & Data Caching)
       </div>
       
       <h1 className="text-3xl font-extrabold text-white tracking-tight">
@@ -16,12 +16,12 @@ export default function HomePage() {
       </h1>
       
       <p className="text-slate-400 text-xs leading-relaxed max-w-2xl mx-auto">
-        В ТСИС6 внедрена авторизация через AuthContext, защищенные маршруты (Protected Routes) и гибридная стратегия кэширования ответов API.
+        В ТСИС6 интегрирована полноценная аутентификация через Firebase (Email/Пароль и Google), защищенные страницы (Profile & Dashboard) и механизм ин-мемори кэширования серверных ответов API.
       </p>
 
-      {isAuthenticated && (
+      {currentUser && (
         <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl max-w-md mx-auto text-xs text-emerald-300">
-          ✅ Вы авторизованы как <strong>{user.name}</strong> ({user.role}). Доступ к Дашборду открыт!
+          ✅ Вы авторизованы как <strong>{currentUser.email}</strong>. Доступ к профилю и дашборду открыт!
         </div>
       )}
 
@@ -38,7 +38,7 @@ export default function HomePage() {
           Перейти к задачам →
         </Link>
         <Link to="/dashboard" className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-xl border border-slate-700">
-          Открыть Дашборд {isAuthenticated ? '' : '🔒'}
+          Дашборд {currentUser ? '' : '🔒'}
         </Link>
       </div>
     </div>
