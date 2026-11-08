@@ -8,16 +8,16 @@ export default function AboutPage() {
       
       <div className="space-y-3 text-xs text-slate-300 leading-relaxed">
         <p>
-          <strong>DevTask Hub</strong> — интерактивный менеджер задач для IT-команд, развиваемый в рамках практических работ ТСИС4 $\rightarrow$ ТСИС5 $\rightarrow$ <strong>ТСИС6</strong>.
+          <strong>DevTask Hub</strong> — интерактивный менеджер задач для IT-команд, развиваемый в рамках ТСИС4 $\rightarrow$ ТСИС5 $\rightarrow$ <strong>ТСИС6</strong>.
         </p>
       </div>
 
       <div className="bg-slate-900/80 p-5 rounded-xl border border-slate-800 text-xs space-y-2 text-slate-300">
         <h3 className="font-bold text-indigo-400 mb-2">Архитектура ТСИС6:</h3>
         <div><strong>Студент:</strong> Медеу Сейдали</div>
-        <div><strong>Стек:</strong> React 18, React Router v6, Tailwind CSS, Vite, LocalStorage & Memory Cache</div>
-        <div><strong>Безопасность:</strong> ProtectedRoute wrapper, AuthContext session persistence, simulated JWT token</div>
-        <div><strong>Кэширование:</strong> In-memory API cache store с инвалидацией при мутациях (`create`, `update`, `remove`) и TTL 60с</div>
+        <div><strong>Стек:</strong> React 18, React Router v6, Tailwind CSS, Vite, Firebase Auth v10</div>
+        <div><strong>Аутентификация:</strong> Firebase Email/Password & Google Sign-In, `onAuthStateChanged`, persistent sessions</div>
+        <div><strong>Кэширование:</strong> In-memory API cache store с автоматической инвалидацией при мутациях и настроенным TTL</div>
       </div>
 
       <div className="pt-2 flex space-x-3">
